@@ -5,8 +5,8 @@ import pytz
 # and I am just trying to get this to deploy
 
 def calculate_time_until_event():
-    # Set the target date (November 15, 2025)
-    target_date = datetime(2025, 11, 27, tzinfo=pytz.UTC)
+    # Set the target date (December 25, 2025)
+    target_date = datetime(2025, 12, 25, tzinfo=pytz.UTC)
     # Get current time in UTC
     current_time = datetime.now(pytz.UTC)
     # Calculate the difference
