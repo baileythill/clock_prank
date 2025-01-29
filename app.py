@@ -4,6 +4,7 @@ import pytz
 
 def calculate_time_until_event():
     target_date = datetime(2025, 12, 25, tzinfo=pytz.UTC)
+    # Get current time in UTC
     current_time = datetime.now(pytz.UTC)
     time_left = target_date - current_time
     
@@ -127,4 +128,5 @@ st.markdown("""
 # Add auto-refresh
 st.markdown("""
     <meta http-equiv="refresh" content="60">
+
 """, unsafe_allow_html=True)
