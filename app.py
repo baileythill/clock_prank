@@ -1,18 +1,13 @@
 import streamlit as st
 from datetime import datetime
 import pytz
-# this all just a dumb joke 
-# and I am just trying to get this to deploy
 
 def calculate_time_until_event():
-    # Set the target date (December 25, 2025)
     target_date = datetime(2025, 12, 25, tzinfo=pytz.UTC)
     # Get current time in UTC
     current_time = datetime.now(pytz.UTC)
-    # Calculate the difference
     time_left = target_date - current_time
     
-    # Calculate days, hours, minutes, and seconds
     days = time_left.days
     hours = time_left.seconds // 3600
     minutes = (time_left.seconds % 3600) // 60
@@ -23,44 +18,115 @@ def calculate_time_until_event():
 # Set page config
 st.set_page_config(page_title="Countdown to the Big Flush")
 
-# Add title with custom styling
+# Add custom CSS with Christmas theme and animations
 st.markdown("""
-    <h1 style='text-align: center; color: #1E88E5;'>
-        Countdown to the Big Flush
-    </h1>
+    <style>
+        /* Christmas color scheme */
+        :root {
+            --christmas-red: #D42426;
+            --christmas-green: #165B33;
+            --snow-white: #FFFFFF;
+            --gold: #FFD700;
+        }
+        
+        .snowflake {
+            color: var(--snow-white);
+            font-size: 1.5em;
+            position: fixed;
+            animation: fall 10s linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        .countdown-box {
+            background-color: var(--christmas-red);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            color: var(--snow-white);
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .title {
+            color: var(--christmas-green);
+            text-align: center;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        .label {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+    </style>
+    
+    <!-- Add snowflakes -->
+    <div class="snowflakes">
+        """ + ''.join([f'<div class="snowflake" style="left: {i}%; animation-delay: {i/10}s;">❄</div>' for i in range(0, 100, 10)]) + """
+    </div>
     """, unsafe_allow_html=True)
 
-# Add countdown timer
+# Add title
+st.markdown('<h1 class="title">🎄 Countdown to the Big Flush 🎄</h1>', unsafe_allow_html=True)
+
+# Get countdown values
 days, hours, minutes, seconds = calculate_time_until_event()
 
-# Create three columns for the countdown display
+# Create columns for countdown display
 col1, col2, col3 = st.columns(3)
 
+# Display countdown boxes
 with col1:
     st.markdown(f"""
-        <div style='text-align: center;'>
-            <h2>{days}</h2>
-            <p>Days</p>
+        <div class="countdown-box">
+            <div class="number">{days}</div>
+            <div class="label">Days</div>
         </div>
-        """, unsafe_allow_html=True)
-    
+    """, unsafe_allow_html=True)
+
 with col2:
     st.markdown(f"""
-        <div style='text-align: center;'>
-            <h2>{hours}</h2>
-            <p>Hours</p>
+        <div class="countdown-box">
+            <div class="number">{hours}</div>
+            <div class="label">Hours</div>
         </div>
-        """, unsafe_allow_html=True)
-    
+    """, unsafe_allow_html=True)
+
 with col3:
     st.markdown(f"""
-        <div style='text-align: center;'>
-            <h2>{minutes}</h2>
-            <p>Minutes</p>
+        <div class="countdown-box">
+            <div class="number">{minutes}</div>
+            <div class="label">Minutes</div>
         </div>
-        """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-# Add auto-refresh to update the countdown
+# Add festive message
+st.markdown("""
+    <div style='text-align: center; margin-top: 30px; color: #165B33; font-size: 1.5em;'>
+        🎅 Ho Ho Ho! The Sh*tter is gonna be full! 🎁
+    </div>
+""", unsafe_allow_html=True)
+
+# Add auto-refresh
 st.markdown("""
     <meta http-equiv="refresh" content="60">
-    """, unsafe_allow_html=True)
+
+""", unsafe_allow_html=True)
